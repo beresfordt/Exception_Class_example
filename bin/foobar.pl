@@ -1,5 +1,10 @@
 #!/usr/bin/perl
 
+BEGIN{
+    chdir 'bin' if -d 'bin' ;
+    use lib '../lib/';
+}
+
 use 5.014 ;
 
 use strict ;
@@ -21,7 +26,7 @@ local $SIG{__WARN__} = sub {
 my $bar = Foo::Bar->new ;
 
 my $r = try{
-    $bar->open('/dud') ;
+    $bar->open('/tmp') ;
 }
 catch{
 
@@ -44,6 +49,8 @@ catch{
         die $_->error, "\n", $_->trace->as_string, "\n" ;
     }
 } ;
+
+say Dumper($r) ;
 
 __DATA__
 
