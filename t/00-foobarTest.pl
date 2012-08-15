@@ -5,7 +5,6 @@ BEGIN{
     use lib '../lib/';
 }
 
-
 use 5.014 ;
 
 use strict ;
@@ -21,15 +20,14 @@ local $SIG{__DIE__} = sub {
     confess "Uncaught exception: @_" unless $^S ;
 } ;
 
-# local $SIG{__WARN__} = sub {
-#     cluck "@_" ;
-# } ;
-
 use_ok( 'Foo::Bar' ) ;
 
 my $bar = Foo::Bar->new ;
 
 throws_ok{ $bar->open('/dud') } 'Foo::Bar::Exception::IO', 'IO error thrown' ;
+
+# $@ contains thrown message
+say $@ ;
 
 done_testing() ;
 
